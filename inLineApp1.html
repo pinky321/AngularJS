@@ -1,0 +1,110 @@
+<html>
+<script src = "https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+
+<style>
+    #editDiv {
+        width : 20px;
+    }
+
+
+</style>
+
+<body>
+<div ng-app = "myApp" ng-controller="inlineController">
+
+    <editDiv name = "editDiv"></editDiv></br>
+      <inputDiv name = "inputDiv"></inputDiv>
+    <!-- <div id = "editDiv" ng-click = "divClick()">
+          <p>{{student.fullName()}}</p>
+      </div> -->
+
+    <!--  <div id="inputDiv">-->
+  <!--  <input type = "text" ng-model = "student.inputType">-->
+    <!--</div>-->
+</div>
+
+<script>
+    var myApp = angular.module("myApp", []);
+
+
+
+
+    myApp.directive('inputDiv', function() {
+        return {
+           // require: '^editDiv',
+            template: '<input name = "inputType" type = "text" ng-model = "inputType"></input>',
+
+        };
+    });
+
+
+    myApp.directive('editDiv', function () {
+        var directive = {};
+        directive.restrict = 'E';
+        directive.require = '^inputDiv';
+        directive.template = '<p>{{student.fullName()}}</p>';
+        directive.scope = {
+            student : "=name"
+        }
+
+        //compile is called during application initialization. AngularJS calls it once when html page is loaded.
+        directive.compile = function (element, attributes) {
+
+
+            //linkFunction is linked with each element with scope to get the element specific data.
+            var linkFunction = function ($scope, element, attributes, parentController) {
+                parentController.css("display", "block");
+                iElement.html($scope.student.fullName());
+            }
+            return linkFunction;
+        }
+        return directive;
+    });
+    /*myApp.directive('editDiv', function() {
+
+        return {
+            require: '^inputDiv',
+            template: '<p>{{student.fullName()}}</p>',
+            scope : {
+                student : "=name"
+            },
+            onClick: function(scope, iElement, iAttrs, parentController) {
+                parentController.css("display", "block");
+                iElement.html($scope.student.fullName());
+
+            }
+        }
+    });*/
+
+
+
+
+    myApp.controller('inlineController', function($scope) {
+
+        $scope.student = {
+            inputType: "Enter text",
+
+
+            fullName: function() {
+                var studentObject;
+                studentObject = $scope.student;
+                return studentObject.inputType;
+            },
+
+            divClick: function () {
+
+            }
+        };
+
+    });
+
+    /*myApp.controller("inlineController", function ($scope) {
+         $scope.divClick = function () {
+             $scope.result = "value";
+         }
+     });*/
+</script>
+
+</body>
+
+</html>

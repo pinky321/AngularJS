@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <script src = "https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+
+</head>
+<body>
+
+<div ng-app = "myApp" ng-controller="translatorCtrl">
+
+    <button ng-click ="omClick(engArray[0])"  ng-model = "English">{{engArray[0]}}</button>
+    <button ng-click ="omClick(engArray[1])"  ng-model = "Hindi">{{engArray[1]}}</button>
+    <button ng-click ="omClick(engArray[2])"  ng-model = "Spanish">{{engArray[2]}}</button>
+
+</div>
+
+<script>
+    var myApp = angular.module("myApp", []);
+    myApp.controller('translatorCtrl', function ($scope) {
+        $scope.engArray = ["English", "Hindi", "Spanish"];
+        $scope.omClick = function (value) {
+            if(value == "English"){
+                $scope.engArray = ["English", "Hindi", "Spanish"];
+            }else if(value == "Hindi"){
+                $scope.engArray = ["Hindi", "English", "Spanish"];
+            }else if(value == "Spanish"){
+                $scope.engArray = ["Spanish", "English", "Hindi"];
+            }
+        }
+        $scope.omClick("English");
+
+    });
+
+
+</script>
+
+</body>
+</html>

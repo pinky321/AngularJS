@@ -1,0 +1,46 @@
+<html>
+
+<script src = "https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+<body>
+<div ng-app="myApp" ng-controller= "loginController">
+    <p>Username : test</p>
+    <p>password : test</p>
+
+
+<div>
+
+    <p ng-bind="result">{{result}}</p>
+</div>
+
+<div>
+    <p>Username</p>
+    <input name = "username" type ="name" ng-model = "username">
+</div>
+
+<div>
+    <p>Password</p>
+    <input name = "password" type ="password" ng-model = "password">
+    <button ng-click = "login()">login</button>
+</div>
+
+</div>
+
+<script>
+    var myApp = angular.module("myApp",[]);
+    myApp.controller('loginController', function ($scope) {
+        $scope.login = function () {
+            if($scope.username != "test" && $scope.password != "test"){
+                $scope.result = "invalid details";
+            }else{
+                $scope.result = "";
+            }
+
+
+        }
+        $scope.login();
+
+    })
+
+</script>
+</body>
+</html>

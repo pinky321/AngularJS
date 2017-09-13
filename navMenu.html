@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+
+<script src = "https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+<body>
+
+<div ng-app="myApp" ng-controller="navMenuController">
+    <button  ng-click="onClick(1)" ng-init="button1 = 'Feed'"></button>
+    <button  ng-click="onClick(2)" ng-init="button2 = 'about'"></button>
+    <button  ng-click="onClick(3)" ng-init="button3 = 'contact'"></button>
+
+  <!--  <button name = "home" ng-bind = "home" ng-click="onClick()">
+        <p>Home</p>
+    </button>
+
+    <button name = "About" ng-bind = "About" ng-click="onClick()">
+        <p>About</p>
+    </button>
+
+    <button name = "Contact" ng-bind = "Contact" ng-click="onClick()">
+        <p>Contact</p>
+    </button> -->
+    <p  ng-model="this['button' + i]">{{result}}</p>
+
+
+</div>
+<script>
+
+    var myApp = angular.module("myApp", []);
+    myApp.controller('navMenuController', function ($scope) {
+
+        $scope.onClick = function (value) {
+            if(value == 1){
+                $scope.result = "You choose home";
+            }else  if(value == 2){
+                $scope.result = "You choose About";
+            }else  if(value == 3){
+                $scope.result = "You choose Contact";
+            }
+        }
+        $scope.onClick();
+    })
+</script>
+
+</body>
+</html>

@@ -1,0 +1,99 @@
+<html>
+<script src = "https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+
+<style>
+    #editDiv {
+       width : 20px;
+    }
+
+
+</style>
+
+<body>
+<div ng-app = "myApp" ng-controller="inlineController">
+
+    <editDiv name = "editDiv"></editDiv></br>
+    <!--  <inputDiv name = "inputDiv"></inputDiv> -->
+  <!-- <div id = "editDiv" ng-click = "divClick()">
+        <p>{{student.fullName()}}</p>
+    </div> -->
+
+  <!--  <div id="inputDiv">-->
+        <input type = "text" ng-model = "student.inputType">
+    <!--</div>-->
+</div>
+
+<script>
+    var myApp = angular.module("myApp", []);
+
+
+    app.directive('parentDirective', function($window) {
+        return {
+            controller: function($scope) {
+                var registeredElements = [];
+                this.registerElement = function(childElement) {
+                    registeredElements.push(childElement);
+                }
+            }
+        };
+    });
+
+    app.directive('childDirective', function() {
+        return {
+            require: '^parentDirective',
+            template: '<span>Child directive</span>',
+            link: function link(scope, iElement, iAttrs, parentController) {
+                parentController.registerElement(iElement);
+            }
+        };
+    });
+
+
+
+
+    myApp.directive('editDiv', function () {
+        var directive = {};
+        directive.restrict = 'E';
+        directive.template= student.inputType;
+
+        directive.compile = function(element, attributes) {
+            element.css("border", "1px solid #cccccc");
+
+            //linkFunction is linked with each element with scope to get the element specific data.
+            var linkFunction = function($scope, element, attributes) {
+                element.html("Student: <b>"+$scope.student.name +"</b> , Roll No: <b>"+$scope.student.rollno+"</b><br/>");
+                element.css("background-color", "#ff00ff");
+            }
+            return linkFunction;
+        }
+        return directive;
+    })
+
+    myApp.controller('inlineController', function($scope) {
+        $scope.student = {
+            inputType: "Enter text",
+
+
+            fullName: function() {
+                var studentObject;
+                studentObject = $scope.student;
+                return studentObject.inputType;
+            },
+
+            divClick: function () {
+
+            }
+        };
+
+    });
+    
+   /*myApp.controller("inlineController", function ($scope) {
+        $scope.divClick = function () {
+            $scope.result = "value";
+        }
+    });*/
+</script>
+
+</body>
+
+</html>
